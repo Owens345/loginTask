@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block main %}
+<h1>Login Page</h1>
+<form method="post">
+    {% csrf_token %}
+    
+    <div>
+        <label for="id_username">Email address:</label>
+        <input type="email" name="username" id="id_username" required>
+    </div>
+    
+    <div>
+        <label for="id_password">Password:</label>
+        <input type="password" name="password" id="id_password" required>
+    </div>
+    
+    {% if form.errors %}
+        <p style="color: red;">Invalid email or password.</p>
+    {% endif %}
+    
+    <button type="submit">Login</button>
+</form>
+{% endblock %}

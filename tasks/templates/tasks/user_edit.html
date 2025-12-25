@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block main %}
+<h1>Member Information Edit Page</h1>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div>
+        <label for="id_username">username:</label>
+        {{ form.username }}
+        {{ form.username.errors }}
+    </div>
+    
+    <div>
+        <label for="id_email">Email address:</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+    </div>
+    
+    <div>
+        <label for="id_age">age:</label>
+        {{ form.age }}
+        {{ form.age.errors }}
+    </div>
+    
+    <button type="submit">Update</button>
+</form>
+
+<div>
+    <a href="{% url 'task_list' %}">Return</a>
+    <a href="{% url 'delete_account' %}">withdrawal from a group</a>
+</div>
+{% endblock %}

@@ -3,7 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block main %}
-<h1>Member Information Details Page</h1>
+<h1>Unsubscribe Page</h1>
 
 <div>
     <p><strong>username:</strong> {{ user.username }}</p>
@@ -11,8 +11,14 @@
     <p><strong>age:</strong> {{ user.age }}</p>
 </div>
 
+<p>Are you sure you want to delete your account? This action cannot be undone.</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Withdraw</button>
+</form>
+
 <div>
-    <a href="{% url 'user_edit' %}">edit</a>
-    <a href="{% url 'change_password' %}">Change Password</a>
+    <a href="{% url 'user_detail' %}">Return</a>
 </div>
 {% endblock %}

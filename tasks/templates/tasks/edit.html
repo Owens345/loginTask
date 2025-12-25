@@ -2,7 +2,7 @@
 
 {% block main %}
 <h1>タスク編集ページ</h1>
-<form action="{% url 'tasks:edit' task.id %}" method="post">
+<form action="{% url 'task_edit' task.id %}" method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <input type="submit" value="更新する">
@@ -10,7 +10,7 @@
 
 <br>
 
-<a href="{% url 'tasks:detail' task.id %}">詳細</a> |
-<a href="{% url 'tasks:index' %}">戻る</a>
+<a href="{% url 'task_detail' task.id %}">詳細</a> |
+<a href="{% url 'task_list' %}">戻る</a>
 
 {% endblock %}

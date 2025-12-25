@@ -1,7 +1,6 @@
+<!DOCTYPE html>
 {% load static %}
-
 <html>
-
   <head>
     <meta charset="utf-8">
     <title>Task</title>
@@ -12,9 +11,19 @@
   <body>
     <nav>
       <ul>
-        <li><a href="{% url 'tasks:index' %}">タスク一覧</a></li>
+        {% if user.is_authenticated %}
+          <!-- Global navigation (logged in) from chart -->
+          <li><a href="{% url 'task_list' %}">Task List</a></li>
+          <li><a href="{% url 'user_detail' %}">User detail</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <!-- Global navigation (logged out) from chart -->
+          <li><a href="{% url 'login' %}">Login</a></li>
+          <li><a href="{% url 'register' %}">User Registration</a></li>
+        {% endif %}
       </ul>
     </nav>
+    
     <main>
       <div>
         {% block main %}
@@ -22,5 +31,4 @@
       </div>
     </main>
   </body>
-
 </html>
