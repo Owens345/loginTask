@@ -13,13 +13,13 @@
       <ul>
         {% if user.is_authenticated %}
           <!-- Global navigation (logged in) from chart -->
-          <li><a href="{% url 'task_list' %}">Task List</a></li>
-          <li><a href="{% url 'user_detail' %}">User detail</a></li>
-          <li><a href="{% url 'logout' %}">Logout</a></li>
+          <li><a href="{% url 'task_list' %}">Task list</a></li>
+          <li><a href="{% url 'user_detail' %}">Member Information</a></li>
+          <li><a href="{% url 'logout' %}">Log out</a></li>
         {% else %}
           <!-- Global navigation (logged out) from chart -->
           <li><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'register' %}">User Registration</a></li>
+          <li><a href="{% url 'register' %}">Member Registration</a></li>
         {% endif %}
       </ul>
     </nav>

@@ -1,18 +1,16 @@
-{% extends 'base.html' %}
-
-{% block title %}{{ title }}{% endblock %}
+{% extends "base.html" %}
 
 {% block main %}
-<h1>Member Information Details Page</h1>
+<h1>タスク詳細ページ</h1>
+<p>
+  <strong>タイトル:</strong>
+  {{task.title}}
+</p>
 
-<div>
-    <p><strong>username:</strong> {{ user.username }}</p>
-    <p><strong>Email address:</strong> {{ user.email }}</p>
-    <p><strong>age:</strong> {{ user.age }}</p>
-</div>
-
-<div>
-    <a href="{% url 'user_edit' %}">edit</a>
-    <a href="{% url 'change_password' %}">Change Password</a>
-</div>
+<p>
+  <strong>内容:</strong>
+  {{task.description}}
+</p>
+<a href="{% url 'task_list' %}">戻る</a> |
+<a href="{% url 'task_edit' task.id %}">編集</a>
 {% endblock %}
