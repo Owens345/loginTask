@@ -1,0 +1,83 @@
+name: Login Assignment Tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: login_task_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.12"
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-django pytest-cov
+    
+    - name: Run migrations
+      env:
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/login_task_test
+        SECRET_KEY: test-secret-key-12345
+        DEBUG: 'False'
+      run: |
+        python manage.py migrate
+    
+    - name: Run tests with coverage
+      env:
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/login_task_test
+        SECRET_KEY: test-secret-key-12345
+        DEBUG: 'False'
+      run: |
+        python manage.py test test_requirements.TestAssignmentRequirements --verbosity=2
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
+    
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - run: |
+          pip install flake8 black isort
+          black --check .
+          isort --check-only .
+          flake8 .
