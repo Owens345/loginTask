@@ -47,10 +47,13 @@ jobs:
         pip install -r requirements.txt
         pip install pytest pytest-django pytest-cov
     
+    - name: Create local_settings.py with SECRET_KEY
+      run: |
+        echo "SECRET_KEY = 'django-insecure-_vn%bn*zjpn)j50h@xt6_kh=thv4%p9zh@!4ux2=+ughak7oq7'" > loginTask/local_settings.py
+    
     - name: Run migrations
       env:
         DATABASE_URL: postgres://sample_user:password@localhost:5432/login_task_test
-        SECRET_KEY: test-secret-key-12345
         DEBUG: 'False'
       run: |
         python manage.py migrate
@@ -58,7 +61,6 @@ jobs:
     - name: Run tests with coverage
       env:
         DATABASE_URL: postgres://postgres:postgres@localhost:5432/login_task_test
-        SECRET_KEY: test-secret-key-12345
         DEBUG: 'False'
       run: |
         python manage.py test test_requirements.TestAssignmentRequirements --verbosity=2
