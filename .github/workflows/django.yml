@@ -55,7 +55,7 @@ jobs:
           coverage.xml
         retention-days: 7
 
-    lint:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
