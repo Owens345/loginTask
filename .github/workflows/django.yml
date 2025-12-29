@@ -49,7 +49,7 @@ jobs:
     
     - name: Run migrations
       env:
-        DATABASE_URL: postgres://postgres:postgres@localhost:5432/login_task_test
+        DATABASE_URL: postgres://sample_user:password@localhost:5432/login_task_test
         SECRET_KEY: test-secret-key-12345
         DEBUG: 'False'
       run: |
