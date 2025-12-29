@@ -14,8 +14,8 @@ jobs:
       postgres:
         image: postgres:13
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: sample_user
+          POSTGRES_PASSWORD: password
           POSTGRES_DB: login_task_test
         options: >-
           --health-cmd pg_isready
