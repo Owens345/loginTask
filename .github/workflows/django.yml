@@ -16,7 +16,7 @@ jobs:
         env:
           POSTGRES_USER: sample_user
           POSTGRES_PASSWORD: password
-          POSTGRES_DB: login_task_test
+          POSTGRES_DB: login_task
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
