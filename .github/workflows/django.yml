@@ -43,13 +43,26 @@ jobs:
     
     - name: Upload test results
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # CHANGED: v3 → v4
       with:
         name: test-results
         path: |
           test-results/
           coverage.xml
         retention-days: 7
+
+  # --- LINTING ---
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Install linting tools
+        run: pip install flake8 black
+      - name: Run linting
+        run: flake8 .  # MOVED: This was floating at the end
 
   # --- SIMPLE DEPLOYMENT ---
   deploy-staging:
@@ -100,6 +113,8 @@ jobs:
         if [[ "${{ needs.test.result }}" == "success" ]]; then
           echo "✅ All tests passed"
         else
+          echo "❌ Tests failed"
+        fi
           echo "❌ Tests failed"
         fi
           flake8 .
